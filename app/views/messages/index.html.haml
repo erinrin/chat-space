@@ -17,10 +17,18 @@
                   -# %i.fa.fa-cog
                   = icon('fa', 'cog')
         .groups
-          %a{:href => "/groups/493/messages"}
+          - current_user.groups.each do |group|
             .group
-              %p.group__group-name test-user
-              %p.group__latest-message こんにちは！
+            = link_to group_messages_path(group) do
+              .group__name
+                = group.name
+              .group__message
+                メッセージはまだありません。
+        -# .groups
+        -#   %a{:href => "/groups/493/messages"}
+        -#     .group
+        -#       %p.group__group-name test-user
+        -#       %p.group__latest-message こんにちは！
       .chat-main
         .main-header
           .main-header__left-box
@@ -33,22 +41,20 @@
           =link_to "/groups/493/edit" do
             .main-header__edit-btn Edit
         .messages
-          .message{"data-message_id" => "866"}
-            .message__upper-info
-              %p.message__upper-info__talker rui
-              %p.message__upper-info__date 2019/08/28(Wed) 19:00:05
-            %p.message__text ヤッホー！
-        .form
-          %form#new_message.new_message{"accept-charset" => "UTF-8", :action => "/groups/493/messages", :enctype => "multipart/form-data", :method => "post"}
-            %input{:name => "utf8", :type => "hidden", :value => "✓"}/
-            %input{:name => "authenticity_token", :type => "hidden", :value => "lY2FtQtIsleOgOcY+Jj9rC3Hzzs9/6LheeePj6/u++qqY//KilptTmXSofoqzVyd8G8MhsJnM75ih4J97WFsvQ=="}/
-            .input-box
-              %input#message_content.input-box__text{:name => "message[content]", :placeholder => "type a message", :type => "text"}/
-              %label.input-box__image{:for => "message_image"}
-                %i.fa.fa-image
-                %input#message_image.input-box__image__file{:name => "message[image]", :type => "file"}/
-            %input.submit-btn{"data-disable-with" => "Send", :name => "commit", :type => "submit", :value => "Send"}/
-
+           = render @messages
+          -# .message{"data-message_id" => "866"}
+          -#   .message__upper-info
+          -#     %p.message__upper-info__talker rui
+          -#     %p.message__upper-info__date 2019/08/28(Wed) 19:00:05
+          -#   %p.message__text ヤッホー！
+          .form
+              = form_for [@group, @message] do |f|
+                = f.text_field :content, class: 'form__message', placeholder: 'type a message'
+                .form__mask
+                  = f.label :image, class: 'form__mask__image' do
+                    = fa_icon 'picture-o', class: 'icon'
+                    = f.file_field :image, class: 'hidden'
+                = f.submit 'Send', class: 'form__submit'
 
 
 
