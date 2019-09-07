@@ -1,62 +1,25 @@
-!!!
-%html
-
-  %body
-    .flash-box
-    .wrapper
-      .chat-side
-        .side-header
-          .side-header__box
-            %p.side-header__box__user-name test-user
-            %ul.side-header__box__menu
-              %li.side-header__box__menu__new-group
-                %a{:href => "/groups/new"}
-                  %i.fa.fa-edit
-              %li.side-header__box__menu__edit-user
-                %a{:href => "/users/edit"}
-                  -# %i.fa.fa-cog
-                  = icon('fa', 'cog')
-        .groups
-          - current_user.groups.each do |group|
-            .group
-            = link_to group_messages_path(group) do
-              .group__name
-                = group.name
-              .group__message
-                メッセージはまだありません。
-        -# .groups
-        -#   %a{:href => "/groups/493/messages"}
-        -#     .group
-        -#       %p.group__group-name test-user
-        -#       %p.group__latest-message こんにちは！
-      .chat-main
-        .main-header
-          .main-header__left-box
-            %h2.main-header__left-box__current-group{"data-group_id" => "493"}
-              お花
-            %ul.main-header__left-box__member-list
-              Member：
-              %li.main-header__left-box__member-list__member momo
-              %li.main-header__left-box__member-list__member rui
-          =link_to "/groups/493/edit" do
-            .main-header__edit-btn Edit
-        .messages
-           = render @messages
-          -# .message{"data-message_id" => "866"}
-          -#   .message__upper-info
-          -#     %p.message__upper-info__talker rui
-          -#     %p.message__upper-info__date 2019/08/28(Wed) 19:00:05
-          -#   %p.message__text ヤッホー！
-          .form
-              = form_for [@group, @message] do |f|
-                = f.text_field :content, class: 'form__message', placeholder: 'type a message'
-                .form__mask
-                  = f.label :image, class: 'form__mask__image' do
-                    = fa_icon 'picture-o', class: 'icon'
-                    = f.file_field :image, class: 'hidden'
-                = f.submit 'Send', class: 'form__submit'
-
-
-
-
-
+.wrapper
+  = render 'shared/side_bar'
+  .chat-main
+    .main-header
+      .main-header__left-box
+        %h2.main-header__left-box__current-group{"data-group_id": @group.id}
+          = @group.name
+        %ul.main-header__left-box__member-list
+          Member：
+          - @group.users.each do |user|
+            = user.name
+          %li.main-header__left-box__member-list__member
+          %li.main-header__left-box__member-list__member
+      = link_to edit_group_path(@group.id) do
+        .main-header__edit-btn Edit
+    .messages
+      = render @messages
+    .form
+      = form_for [@group, @message] do |f|
+        = f.text_field :content, class: 'form__message', placeholder: 'type a message'
+        .form__mask
+          = f.label :image, class: 'form__mask__image' do
+            = fa_icon 'picture-o', class: 'icon'
+            = f.file_field :image, class: 'hidden'
+        = f.submit 'Send', class: 'form__submit'

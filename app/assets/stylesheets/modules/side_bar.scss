@@ -1,30 +1,44 @@
+a, a:hover,a:visited {
+  color: white;
+  }
+  a{
+    text-decoration: none;
+  }
 .side-bar {
   box-sizing: border-box;
   color: $white;
   width: 300px;
   .header {
+    // display :flex;
+    // justify-content: space-between;
     background-color: $side_blue_dark;
     height: 100px;
     line-height: 100px;
     padding: 0 20px;
+    // margin: 30 20px;
+    position: relative;
     &__name {
-      display: inline-block;
+      // display: inline-block;
       font-size: 1rem;
       font-weight: bold;
     }
-    &__lists {
+    &__list {
       display: inline-block;
-      float: right;
+      position: absolute;
+      top: 0;
+      right: 20px;
       .list {
         display: inline-block;
-      }
-      .icon {
-        color: $white;
-        font-size: 1rem;
-      }
-    }
+        
+        .icon {
+          color: $white;
+          font-size: 1rem;
+          display: inline;
+          // position: absolute
+        }
+     }
+    }  
   }
-
   .groups {
     background-color: $side_blue_light;
     height: calc(100vh - 100px);
@@ -40,6 +54,7 @@
         color: $white;
         font-size: 11px;
         margin-top: 5px;
+        margin-bottom: 40px;
       }
     }
   }
