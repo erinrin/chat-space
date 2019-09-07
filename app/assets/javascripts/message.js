@@ -36,13 +36,14 @@ $(document).on('turbolinks:load', function(){
       var html = buildHTML(data);
       $('.messages').append(html);
       $('#message_content').val('');
+      $('form')[0].reset();
       scrollBottom();
     })
     .fail(function(data){
       alert('エラーが発生したためメッセージは送信できませんでした。');
     })
     .always(function(data){
-      $('.submit-btn').prop('disabled', false);
+      $('.form__submit').prop('disabled', false);
     })
    })
   })
