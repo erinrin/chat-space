@@ -107,12 +107,14 @@
     display: flex;
     margin-bottom: 10px;
    }
-   .message__upper-info__talker {
+   .upper-message__user-name{
+    display: inline;
     color: #434a54;
     font-size: 16px;
     font-weight: bold;
    }
-   .message__upper-info__date {
+   .upper-message__date {
+    display: inline;
     color: #999999;
     font-size: 12px;
     margin-left: 10px;
