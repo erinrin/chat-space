@@ -13,7 +13,7 @@ $(document).on('turbolinks:load', function(){
                   </div>
                   <p class="message_body">
                     <div>
-                    ${content}
+                    ${message.content}
                     </div>
                     ${img}
                   </p>
@@ -32,17 +32,17 @@ $(document).on('turbolinks:load', function(){
       processData: false,
       contentType: false
     })
-    .done(function(data){
-      var html = buildHTML(data);
+    .done(function(message){
+      var html = buildHTML(message);
       $('.messages').append(html);
       $('#message_content').val('');
       $('form')[0].reset();
       scrollBottom();
     })
-    .fail(function(data){
+    .fail(function(message){
       alert('エラーが発生したためメッセージは送信できませんでした。');
     })
-    .always(function(data){
+    .always(function(message){
       $('.form__submit').prop('disabled', false);
     })
    })
