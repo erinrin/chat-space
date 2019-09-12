@@ -11,7 +11,7 @@
             = user.name
           %li.main-header__left-box__member-list__member
           %li.main-header__left-box__member-list__member
-      = link_to edit_group_path(@group.id) do
+      = link_to edit_group_path(@group.id), class: "edit-btn" do
         .main-header__edit-btn Edit
     .messages
       = render @messages
