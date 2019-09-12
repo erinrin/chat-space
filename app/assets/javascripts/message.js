@@ -59,9 +59,14 @@ $(document).on('turbolinks:load', function(){
     if (window.location.href.match(/\/groups\/\d+\/messages/)){//今いるページのリンクが/groups/グループID/messagesのパスとマッチすれば以下を実行。
       
       // messageがあるとき
-      var last_message_id = $('.message:last').data("message-id"); //dataメソッドで.messageにある:last最後のカスタムデータ属性を取得しlast_message_idに代入。
       // var group_id = $(".group").data("group-id");
-      
+      var last_message_id
+      if ($('.message:last').data("message-id")){
+        last_message_id = $('.message:last').data("message-id"); //dataメソッドで.messageにある:last最後のカスタムデータ属性を取得しlast_message_idに代入。
+      }else{
+        last_message_id = 0
+      }
+
 
 
       $.ajax({ //ajax通信で以下のことを行う
