@@ -1,22 +1,22 @@
 $(document).on('turbolinks:load', function(){
   function buildHTML(message) {
 
-    var img = message.image ? `<img src= ${ message.image }>` : "";
-    var html = `<div class="message" data-id="${message.id}">
-                  <div class="message__detail">
-                    <p class="message__detail__current-user-name">
+    var img = message.image ? `<img class="lower-message__image" src= "${message.image}">` : "";
+    var html = `<div class="message" data-message-id="${message.id}">
+                  <div class="upper-message">
+                    <div class="upper-message__user-name">
                       ${message.user_name}
-                    </p>
-                    <p class="message__detail__date">
-                      ${message.date}
-                    </p>
-                  </div>
-                  <p class="message_body">
-                    <div>
-                    ${message.content}
                     </div>
+                    <div class="upper-message__date">
+                      ${message.date}
+                    </div>
+                  </div>
+                  <div class="lower-message">
+                    <p class="lower-message__content">
+                    ${message.content}
+                    </p>
+          
                     ${img}
-                  </p>
                 </div>`
   return html;
   }
@@ -46,9 +46,8 @@ $(document).on('turbolinks:load', function(){
       $('.form__submit').prop('disabled', false);
     })
    })
-  })
 
-  function scrollBottom(){
+   function scrollBottom(){
     var target = $('.message').last();
     var position = target.offset().top + $('.messages').scrollTop();
     $('.messages').animate({
@@ -65,7 +64,6 @@ $(document).on('turbolinks:load', function(){
       }else{
         last_message_id = 0
       }
-
       $.ajax({ //ajax通信で以下のことを行う
         url: "api/messages", //サーバを指定。今回はapi/message_controllerに処理を飛ばす
         type: 'get', //メソッドを指定
