@@ -62,7 +62,7 @@ $(document).on('turbolinks:load', function(){
       if ($('.message:last').data("message-id")){    //dataメソッドで.messageにある:last最後のカスタムデータ属性を取得しlast_message_idに代入。
         last_message_id = $('.message:last').data("message-id"); 
       }else{
-        last_message_id = 0
+        last_message_id = 0;
       }
       $.ajax({ //ajax通信で以下のことを行う
         url: "api/messages", //サーバを指定。今回はapi/message_controllerに処理を飛ばす
@@ -72,11 +72,14 @@ $(document).on('turbolinks:load', function(){
       })
       .done(function (messages) { //通信成功したら、controllerから受け取ったデータ（messages)を引数にとって以下のことを行う
         var insertHTML = '';//追加するHTMLの入れ物を作る
-        messages.forEach(function (message) {//配列messagesの中身一つ一つを取り出し、HTMLに変換したものを入れ物に足し合わせる
-          insertHTML = buildHTML(message); //メッセージが入ったHTMLを取得
-          $('.messages').append(insertHTML);//メッセージを追加
-        })
-        $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');//最新のメッセージが一番下に表示されようにスクロールする。
+        if (messages.length != 0){
+          messages.forEach(function (message) {//配列messagesの中身一つ一つを取り出し、HTMLに変換したものを入れ物に足し合わせる
+            insertHTML = buildHTML(message); //メッセージが入ったHTMLを取得
+            $('.messages').append(insertHTML);//メッセージを追加
+          })
+          $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');//最新のメッセージが一番下に表示されようにスクロールする。
+        }
+
       })
       .fail(function () {
         alert('自動更新に失敗しました');//ダメだったらアラートを出す
